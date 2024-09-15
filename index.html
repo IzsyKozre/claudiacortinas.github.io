@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desarrollo de software seguro</title>
+
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="estilo.css">
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+</head>
+
+<body>
+    <h2>C3. Práctica software seguro.</h2>
+    <h5>Por Claudia Cortinas 203227</h5>
+    <h4>Ingresa tus datos.</h4>
+    <form class="form-validacion" novalidate>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label for="validarNombre">Nombre</label>
+                <input type="text" maxlength="30" class="form-control disablecopypaste" id="validarNombre" placeholder="Nombre" required autocomplete="off"
+                onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode == 32
+                || event.charCode == 165 || event.charCode == 164)">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validarApellido">Apellido</label>
+                <input type="text" maxlength="30" class="form-control disablecopypaste" id="validarApellido" placeholder="Apellido" required autocomplete="off"
+                onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || event.charCode == 32
+                || event.charCode == 165 || event.charCode == 164)">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validarCorreo">Correo electrónico</label>
+                <input type="email" maxlength="40" class="form-control disablecopypaste" id="validarCorreo" placeholder="Correo electrónico" required autocomplete="off"
+                onkeypress="return ((event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) 
+                || event.charCode == 64 || event.charCode == 95 || event.charCode == 45 || event.charCode == 46)">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validarNumero">Número celular</label>
+                <input type="tel" maxlength="10" class="form-control disablecopypaste" id="validarNumero" placeholder="Número celular" required autocomplete="off"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit" id="boton" onclick="validar()">Enviar</button>
+    </form>
+
+    <script blocking=render>
+        $(document).ready(function () {
+            $('input.disablecopypaste').bind('copy paste', function (e) {
+            e.preventDefault();
+            });
+        });
+    </script>
+
+    <script blocking=render>
+     
+        (function() {
+            'use strict';
+            var boton = document.getElementById("boton");
+            boton.addEventListener('click', function() {
+
+            var forms = document.getElementsByClassName('form-validacion');
+     
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+                }, false);
+            });
+            }, false);
+        })();
+
+        boton.addEventListener('click', validar);
+        function validar(){
+            var nombre = document.getElementById("validarNombre").value;
+            var apellido = document.getElementById("validarApellido").value;
+            var correo = document.getElementById("validarCorreo").value;
+            var celular = document.getElementById("validarNumero").value;
+            if(nombre != "" && apellido != "" && correo != "" && celular != ""){
+                if(nombre == "!<>?/:;'.,-_[{}]" || apellido == "!<>?/:;'.,-_[{}]" || correo == "!<>?/:;'[{}]"){
+                alert ("Prohibido inyectar código SQL.")
+                nombre = ""
+                apellido = ""
+                correo = ""
+                celular = ""
+                }
+                else{
+                    alert ("Los datos han sido validados correctamente.")
+                    nombre = ""
+                    apellido = ""
+                    correo = ""
+                    celular = ""
+                }
+            }
+            
+        }
+
+        document.oncontextmenu = function(){return false;}
+
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+*{
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body{
+background-color: ghostwhite;
+}
+
+h2{
+    margin: 50px;
+    margin-left: 35px;
+}
+
+h4{
+    margin: 35px;
+}
+h5{
+    margin: 35px;
+}
+
+form{
+    width: 100%;
+    
+}
+
+
+
+.form-row{
+    margin-bottom: 35px;
+    margin-left: 35px;
+}
+
+button{
+margin: 35px;
+}
